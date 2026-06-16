@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.gestionnaire_notes_android.data.Note;
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
@@ -39,23 +40,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         holder.tvTitre.setText(note.getTitre());
         holder.tvDate.setText(note.getDate());
-
-        // Appliquer la couleur de fond
         holder.itemView.setBackgroundColor(Color.parseColor(note.getCouleur()));
 
-        // Afficher l'icône favori
         if (note.isFavori()) {
             holder.ivFavori.setVisibility(View.VISIBLE);
         } else {
             holder.ivFavori.setVisibility(View.GONE);
         }
 
-        // Clic simple → ouvrir modification
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) listener.onNoteClick(note);
-        });
-
-        // Double clic → toggle favori
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             private int clickCount = 0;
             private final android.os.Handler handler = new android.os.Handler();
