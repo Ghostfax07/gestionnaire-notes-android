@@ -1,19 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/background">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etRecherche"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="Rechercher"
+                android:paddingStart="12dp"
+                android:background="@drawable/bg_search"
+                android:inputType="text"/>
+
+            <Button
+                android:id="@+id/btnFavoris"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Favoris"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/color_blanc"
+                android:textColor="@color/color_noir"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAucuneNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aucune notes"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="200dp"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <!-- Boutons couleurs palette -->
+    <ImageButton android:id="@+id/fabVert"
+        android:layout_width="44dp" android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="280dp"
+        android:background="@drawable/circle_vert"
+        android:visibility="gone"/>
+
+    <ImageButton android:id="@+id/fabRouge"
+        android:layout_width="44dp" android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="232dp"
+        android:background="@drawable/circle_rouge"
+        android:visibility="gone"/>
+
+    <ImageButton android:id="@+id/fabBleu"
+        android:layout_width="44dp" android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="184dp"
+        android:background="@drawable/circle_bleu"
+        android:visibility="gone"/>
+
+    <ImageButton android:id="@+id/fabJaune"
+        android:layout_width="44dp" android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="136dp"
+        android:background="@drawable/circle_jaune"
+        android:visibility="gone"/>
+
+    <ImageButton android:id="@+id/fabOrange"
+        android:layout_width="44dp" android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="88dp"
+        android:background="@drawable/circle_orange"
+        android:visibility="gone"/>
+
+    <ImageButton android:id="@+id/fabGris"
+        android:layout_width="44dp" android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="40dp"
+        android:background="@drawable/circle_gris"
+        android:visibility="gone"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/fab_background"
+        app:tint="@color/color_blanc"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
