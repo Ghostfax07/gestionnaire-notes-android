@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (Note note : toutesLesNotes) {
             boolean correspondRecherche = texteRecherche.isEmpty()
-                    || note.getTitre().toLowerCase().contains(texteRecherche);
+                    || (note.getTitre() != null && note.getTitre().toLowerCase().contains(texteRecherche));
             boolean correspondFavoris = !filtreFavorisActif || note.isFavori();
 
             if (correspondRecherche && correspondFavoris) {

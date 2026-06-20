@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gestionnaire_notes_android.data.Note;
 import com.example.gestionnaire_notes_android.data.NoteRepertoire;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class NoteFormActivity extends AppCompatActivity {
 
     private LinearLayout layoutFond;
@@ -29,15 +27,8 @@ public class NoteFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_form);
 
-        // === AJOUTE CES LOGS ===
-        android.util.Log.d("NoteForm", "🚀 onCreate appelé");
-
-        int noteId = getIntent().getIntExtra("note_id", -1);
-        android.util.Log.d("NoteForm", "📝 note_id reçu : " + noteId);
-
-        AtomicReference<String> couleur = new AtomicReference<>(getIntent().getStringExtra("couleur"));
-        android.util.Log.d("NoteForm", "🎨 couleur reçue : " + couleur);
-        // === FIN DES LOGS ===
+        noteId = getIntent().getIntExtra("note_id", -1);
+        this.couleur = getIntent().getStringExtra("couleur");
 
         layoutFond = findViewById(R.id.layoutFond);
         etTitre = findViewById(R.id.etTitre);
@@ -47,33 +38,21 @@ public class NoteFormActivity extends AppCompatActivity {
         repertoire = new NoteRepertoire(getApplication());
 
         // Récupérer la couleur (mode création depuis la palette)
-        couleur.set(getIntent().getStringExtra("couleur"));
-        if (couleur.get() == null) couleur.set("#219653");
-        layoutFond.setBackgroundColor(Color.parseColor(couleur.get()));
+        if (this.couleur == null) this.couleur = "#219653";
+        layoutFond.setBackgroundColor(Color.parseColor(this.couleur));
 
         // Mode modification : on récupère l'id transmis par MainActivity
-        noteId = getIntent().getIntExtra("note_id", -1);
-        android.util.Log.d("NoteForm", "🔍 noteId après récupération : " + noteId);
-
         if (noteId != -1) {
-            android.util.Log.d("NoteForm", "📖 Appel de getNoteParId(" + noteId + ")");
-            int finalNoteId = noteId;
             repertoire.getNoteParId(noteId).observe(this, note -> {
-                android.util.Log.d("NoteForm", "📦 Note reçue dans l'observateur : " + (note != null ? note.getTitre() : "null"));
                 if (note != null) {
                     noteExistante = note;
                     etTitre.setText(note.getTitre());
                     etContenu.setText(note.getContenu());
-                    couleur.set(note.getCouleur());
-                    layoutFond.setBackgroundColor(Color.parseColor(couleur.get()));
+                    this.couleur = note.getCouleur();
+                    layoutFond.setBackgroundColor(Color.parseColor(this.couleur));
                     btnAction.setText("Modifier");
-                    android.util.Log.d("NoteForm", "✅ Note chargée : " + note.getTitre());
-                } else {
-                    android.util.Log.d("NoteForm", "❌ Note non trouvée pour l'id " + finalNoteId);
                 }
             });
-        } else {
-            android.util.Log.d("NoteForm", "⚠️ Pas de note_id, mode création");
         }
 
 
@@ -91,7 +70,7 @@ public class NoteFormActivity extends AppCompatActivity {
             if (noteExistante == null) {
                 // Création
                 Note nouvelleNote = new Note(
-                        titre, contenu, couleur.get(), false,
+                        titre, contenu, this.couleur, false,
                         System.currentTimeMillis()
                 );
                 repertoire.inserer(nouvelleNote);
@@ -99,7 +78,7 @@ public class NoteFormActivity extends AppCompatActivity {
                 // Modification
                 noteExistante.setTitre(titre);
                 noteExistante.setContenu(contenu);
-                noteExistante.setCouleur(couleur.get());
+                noteExistante.setCouleur(this.couleur);
                 repertoire.modifier(noteExistante);
             }
 

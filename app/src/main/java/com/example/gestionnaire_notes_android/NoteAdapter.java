@@ -50,6 +50,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = notes.get(position);
+        android.util.Log.d("NoteDebug", "onBindViewHolder appelé pour : " + note.getTitre());
 
         holder.tvTitre.setText(note.getTitre());
 
@@ -71,30 +72,36 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
                     @Override
                     public boolean onDown(MotionEvent e) {
-                        // Indispensable : sans ça, le GestureDetector ne suit pas
-                        // correctement la séquence des touches et onSingleTapConfirmed /
-                        // onDoubleTap ne se déclenchent jamais de manière fiable.
+                        android.util.Log.d("NoteDebug", "onDown détecté");
                         return true;
                     }
 
                     @Override
                     public boolean onSingleTapConfirmed(MotionEvent e) {
+                        android.util.Log.d("NoteDebug", "onSingleTapConfirmed -> onNoteClick");
                         listener.onNoteClick(note);
                         return true;
                     }
 
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
+                        android.util.Log.d("NoteDebug", "onDoubleTap -> onFavoriToggle");
                         listener.onFavoriToggle(note);
                         return true;
                     }
                 }
         );
 
+        // holder.itemView.setOnClickListener(v -> {
+        //    android.util.Log.d("NoteDebug", "CLIC SIMPLE reçu pour : " + note.getTitre());
+        // });
+
         holder.itemView.setOnTouchListener((v, event) -> {
-            gestureDetector.onTouchEvent(event);
-            // On retourne false pour ne pas bloquer les events natifs (ripple, etc.)
-            return false;
+            boolean handled = gestureDetector.onTouchEvent(event);
+            if (event.getAction() == MotionEvent.ACTION_UP && !handled) {
+                v.performClick();
+            }
+            return true;
         });
     }
 
