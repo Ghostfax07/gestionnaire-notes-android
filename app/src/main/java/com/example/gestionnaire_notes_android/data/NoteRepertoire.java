@@ -15,6 +15,10 @@ public class NoteRepertoire {
         toutesLesNotes = noteDao.getToutesLesNotes();
     }
 
+    public LiveData<Note> getNoteParId(int id) {
+        return noteDao.getNoteParId(id);
+    }
+
     public void inserer(Note note) {
         new Thread(() -> noteDao.inserer(note)).start();
     }

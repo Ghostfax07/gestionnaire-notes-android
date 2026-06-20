@@ -24,6 +24,9 @@ public interface NoteDao {
     @Query("SELECT * FROM notes ORDER BY dateCreation DESC")
     LiveData<List<Note>> getToutesLesNotes();
 
+    @Query("SELECT * FROM notes WHERE id = :id")
+    LiveData<Note> getNoteParId(int id);
+
     @Query("SELECT * FROM notes WHERE favori = 1 ORDER BY dateCreation DESC")
     LiveData<List<Note>> getFavoris();
 
