@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Typographie -->
+    <dimen name="text_titre1">45sp</dimen>
+    <dimen name="text_titre2">40sp</dimen>
+    <dimen name="text_titre3">24sp</dimen>
+    <dimen name="text_titre4">16sp</dimen>
+    <dimen name="text_body1">14sp</dimen>
+    <dimen name="text_body2">12sp</dimen>
+
+    <!-- Espacements -->
+    <dimen name="note_padding">12dp</dimen>
+    <dimen name="note_margin">8dp</dimen>
+    <dimen name="note_corner_radius">12dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="color_dot_size">40dp</dimen>
+</resources>
