@@ -8,7 +8,8 @@
     <color name="color_gris">#828282</color>
     <color name="color_noir">#000000</color>
     <color name="color_blanc">#FFFFFF</color>
-    <color name="fab_background">#000000</color>
-    <color name="note_text_light">#FFFFFF</color>
+
     <color name="background">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="fab_background">#000000</color>
 </resources>

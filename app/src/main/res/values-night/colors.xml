@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#121212</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="fab_background">#FFFFFF</color>
+    <color name="color_noir">#FFFFFF</color>
+    <color name="color_blanc">#1E1E1E</color>
+</resources>

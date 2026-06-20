@@ -1,12 +1,15 @@
 package com.example.gestionnaire_notes_android;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gestionnaire_notes_android.data.Note;
@@ -16,7 +19,7 @@ public class NoteFormActivity extends AppCompatActivity {
 
     private LinearLayout layoutFond;
     private EditText etTitre, etContenu;
-    private Button btnAction;
+    private Button btnAction, btnShare, btnDelete;
     private String couleur;
     private NoteRepertoire repertoire;
     private Note noteExistante;
@@ -34,6 +37,8 @@ public class NoteFormActivity extends AppCompatActivity {
         etTitre = findViewById(R.id.etTitre);
         etContenu = findViewById(R.id.etContenu);
         btnAction = findViewById(R.id.btnAction);
+        btnShare = findViewById(R.id.btnShare);
+        btnDelete = findViewById(R.id.btnDelete);
 
         repertoire = new NoteRepertoire(getApplication());
 
@@ -51,6 +56,7 @@ public class NoteFormActivity extends AppCompatActivity {
                     this.couleur = note.getCouleur();
                     layoutFond.setBackgroundColor(Color.parseColor(this.couleur));
                     btnAction.setText("Modifier");
+                    btnDelete.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -84,6 +90,30 @@ public class NoteFormActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Note enregistrée !", Toast.LENGTH_SHORT).show();
             finish();
+        });
+
+        btnShare.setOnClickListener(v -> {
+            String titre = etTitre.getText().toString();
+            String contenu = etContenu.getText().toString();
+            String message = titre + "\n\n" + contenu;
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, titre);
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(intent, "Partager via"));
+        });
+
+        btnDelete.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Supprimer la note")
+                    .setMessage("Voulez-vous vraiment supprimer cette note ?")
+                    .setPositiveButton("Supprimer", (dialog, which) -> {
+                        repertoire.supprimer(noteExistante);
+                        finish();
+                    })
+                    .setNegativeButton("Annuler", null)
+                    .show();
         });
     }
 }

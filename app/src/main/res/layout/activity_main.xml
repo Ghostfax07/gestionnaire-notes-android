@@ -12,21 +12,41 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <EditText
+            android:id="@+id/etRecherche"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:hint="Rechercher"
+            android:paddingStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_search"
+            android:inputType="text"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
 
-            <EditText
-                android:id="@+id/etRecherche"
+            <TextView
+                android:id="@+id/tvCompteur"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Rechercher"
-                android:paddingStart="12dp"
-                android:background="@drawable/bg_search"
-                android:inputType="text"/>
+                android:text="0 notes"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"/>
+
+            <ImageButton
+                android:id="@+id/btnTri"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Trier"
+                app:tint="@color/color_noir"/>
 
             <Button
                 android:id="@+id/btnFavoris"
@@ -35,7 +55,7 @@
                 android:text="Favoris"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/color_blanc"
-                android:textColor="@color/color_noir"/>
+                android:textColor="@color/text_primary"/>
 
         </LinearLayout>
 
@@ -45,6 +65,7 @@
             android:layout_height="wrap_content"
             android:text="Aucune notes"
             android:textSize="16sp"
+            android:textColor="@color/text_primary"
             android:gravity="center"
             android:layout_marginTop="200dp"
             android:visibility="gone"/>
